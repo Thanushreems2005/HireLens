@@ -30,12 +30,10 @@ cd hirelens
 
 
 2️⃣ Install Dependencies
-
 pip install streamlit sentence-transformers spacy pandas PyMuPDF requests hashlib fpdf
 
 
 3️⃣ Download spaCy Model
-
 python -m spacy download en_core_web_sm
 
 🚀 Usage
@@ -76,10 +74,9 @@ Backend	Python + SQLite
 AI/NLP	Sentence Transformers, spaCy
 PDF Parsing	PyMuPDF (fitz)
 APIs	Google Gemini
+
 🗄 Database Schema
-
 analysis_results Table
-
 Column	Description
 id	Primary key
 resume_name	Candidate file name
@@ -89,8 +86,7 @@ extracted_skills	Parsed skills from resume
 match_level	High / Medium / Low
 skill_gaps	Missing skills
 file_hash	Hash to prevent duplicate entries
-📜 License
 
+📜 License
 Licensed under the MIT License.
-See the LICENSE
- file for details.
+
