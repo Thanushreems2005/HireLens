@@ -19,178 +19,360 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- Clean Black & White Theme ---
+# --- Professional Black & White Theme ---
 custom_css = """
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 .stApp {
-    background-color: #ffffff;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #000000;
+    background-color: #000000;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #ffffff;
 }
+
 .stSidebar {
-    background-color: #f8f9fa;
-    border-right: 1px solid #e0e0e0;
+    background-color: #111111;
+    border-right: 1px solid #333333;
 }
+
 .stSidebar .stMarkdown {
-    color: #000000 !important;
+    color: #ffffff !important;
 }
+
 .stSidebar .stMarkdown h1, .stSidebar .stMarkdown h2, .stSidebar .stMarkdown h3 {
-    color: #000000 !important;
-}
-.stSidebar .stMarkdown p {
-    color: #000000 !important;
-}
-.stSidebar label {
-    color: #000000 !important;
-}
-.stSidebar .stFileUploader label {
-    color: #000000 !important;
-}
-.stSidebar .stFileUploader div {
-    color: #000000 !important;
-}
-.stSidebar .stCheckbox label {
-    color: #000000 !important;
-}
-.stSidebar .stCheckbox span {
-    color: #000000 !important;
-}
-.stSidebar .caption {
-    color: #666666 !important;
-}
-.stButton>button {
-    background-color: #000000 !important;
     color: #ffffff !important;
-    border-radius: 6px;
     font-weight: 600;
-    border: 2px solid #000000;
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
 }
-.stButton>button:hover {
-    background-color: #333333 !important;
+
+.stSidebar .stMarkdown p {
+    color: #cccccc !important;
+}
+
+.stSidebar label {
+    color: #ffffff !important;
+    font-weight: 500;
+}
+
+.stSidebar .stFileUploader label {
     color: #ffffff !important;
 }
-.stButton>button:focus {
-    background-color: #000000 !important;
+
+.stSidebar .stFileUploader div {
+    color: #cccccc !important;
+}
+
+.stSidebar .stCheckbox label {
     color: #ffffff !important;
-    border-color: #000000 !important;
 }
-.stButton>button[data-testid="stBaseButton-primary"] {
-    background-color: #000000 !important;
+
+.stSidebar .stCheckbox span {
     color: #ffffff !important;
 }
-.stDownloadButton>button {
-    background-color: #000000 !important;
-    color: #ffffff !important;
-    border: 2px solid #000000;
+
+.stSidebar .caption {
+    color: #888888 !important;
 }
-.stMetric {
-    background-color: white;
-    padding: 1rem;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    color: #000000;
-}
-.stMetric label {
-    color: #000000 !important;
-}
-.stMetric div {
-    color: #000000 !important;
-}
-.stDataFrame {
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-}
-.stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
-    color: #000000 !important;
-    font-weight: 700;
-}
-.stMarkdown p {
-    color: #000000 !important;
-}
-.stTextInput>div>div>input, .stTextArea>div>div>textarea {
-    background-color: #ffffff;
-    border: 2px solid #e0e0e0;
-    border-radius: 6px;
-    color: #000000 !important;
-    font-size: 0.9rem;
-}
-.stTextInput>div>div>input:focus, .stTextArea>div>div>textarea:focus {
-    border-color: #000000;
-}
-.stTextInput label {
-    color: #000000 !important;
-}
-.stTextArea label {
-    color: #000000 !important;
-}
-.stSelectbox>div>div>select {
-    background-color: #ffffff;
-    border: 2px solid #e0e0e0;
-    border-radius: 6px;
-    color: #000000 !important;
-}
-.stSelectbox label {
-    color: #000000 !important;
-}
-.stFileUploader {
-    color: #000000 !important;
-}
-.stFileUploader label {
-    color: #000000 !important;
-}
-.stFileUploader div {
-    color: #000000 !important;
-}
-.stFileUploader section {
-    border: 2px dashed #e0e0e0 !important;
+
+.stButton>button {
     background-color: #ffffff !important;
     color: #000000 !important;
+    border-radius: 8px;
+    font-weight: 600;
+    border: 2px solid #ffffff;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
 }
+
+.stButton>button:hover {
+    background-color: #f5f5f5 !important;
+    color: #000000 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+.stButton>button:focus {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border-color: #ffffff !important;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+.stButton>button:disabled {
+    background-color: #333333 !important;
+    color: #666666 !important;
+    border-color: #333333 !important;
+}
+
+.stDownloadButton>button {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #ffffff;
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.stDownloadButton>button:hover {
+    background-color: #f5f5f5 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+.stMetric {
+    background-color: #111111;
+    padding: 1.5rem;
+    border: 1px solid #333333;
+    border-radius: 12px;
+    color: #ffffff;
+    text-align: center;
+}
+
+.stMetric label {
+    color: #cccccc !important;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.stMetric div {
+    color: #ffffff !important;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.stDataFrame {
+    background-color: #111111;
+    border: 1px solid #333333;
+    border-radius: 12px;
+    color: #ffffff;
+}
+
+.stDataFrame table {
+    background-color: #111111 !important;
+    color: #ffffff !important;
+}
+
+.stDataFrame thead th {
+    background-color: #222222 !important;
+    color: #ffffff !important;
+    font-weight: 600;
+    border-bottom: 2px solid #333333;
+}
+
+.stDataFrame tbody td {
+    background-color: #111111 !important;
+    color: #ffffff !important;
+    border-bottom: 1px solid #333333;
+}
+
+.stDataFrame tbody tr:hover {
+    background-color: #1a1a1a !important;
+}
+
+.stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
+    color: #ffffff !important;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+}
+
+.stMarkdown h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.stMarkdown h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.stMarkdown h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.6rem;
+}
+
+.stMarkdown p {
+    color: #cccccc !important;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.stTextInput>div>div>input, .stTextArea>div>div>textarea {
+    background-color: #111111 !important;
+    border: 2px solid #333333 !important;
+    border-radius: 8px;
+    color: #ffffff !important;
+    font-size: 0.95rem;
+    padding: 0.75rem;
+}
+
+.stTextInput>div>div>input:focus, .stTextArea>div>div>textarea:focus {
+    border-color: #ffffff !important;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+.stTextInput label, .stTextArea label {
+    color: #ffffff !important;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.stSelectbox>div>div>select {
+    background-color: #111111 !important;
+    border: 2px solid #333333 !important;
+    border-radius: 8px;
+    color: #ffffff !important;
+    padding: 0.75rem;
+}
+
+.stSelectbox label {
+    color: #ffffff !important;
+    font-weight: 500;
+}
+
+.stFileUploader {
+    color: #ffffff !important;
+}
+
+.stFileUploader label {
+    color: #ffffff !important;
+    font-weight: 500;
+}
+
+.stFileUploader div {
+    color: #cccccc !important;
+}
+
+.stFileUploader section {
+    border: 2px dashed #333333 !important;
+    background-color: #111111 !important;
+    color: #ffffff !important;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.stFileUploader section:hover {
+    border-color: #ffffff !important;
+    background-color: #1a1a1a !important;
+}
+
 .stFileUploader section div {
-    color: #000000 !important;
+    color: #cccccc !important;
 }
+
 .stCheckbox label {
-    color: #000000 !important;
+    color: #ffffff !important;
+    font-weight: 500;
 }
+
 .stCheckbox span {
-    color: #000000 !important;
+    color: #ffffff !important;
 }
+
 .stTabs [data-baseweb="tab-list"] {
-    background-color: #f8f9fa;
+    background-color: #111111;
+    border-radius: 12px;
+    padding: 0.25rem;
+    border: 1px solid #333333;
 }
+
 .stTabs [data-baseweb="tab"] {
-    color: #000000 !important;
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
+    color: #cccccc !important;
+    background-color: transparent;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.3s ease;
 }
+
 .stTabs [aria-selected="true"] {
-    background-color: #000000 !important;
-    color: white !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    font-weight: 600;
 }
+
+.stTabs [data-baseweb="tab"]:hover {
+    background-color: #222222 !important;
+    color: #ffffff !important;
+}
+
 div[data-testid="stSidebarNav"] {
-    color: #000000 !important;
+    color: #ffffff !important;
 }
+
 div[data-testid="stSidebarNav"] span {
-    color: #000000 !important;
+    color: #ffffff !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #111111;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333333;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555555;
+}
+
+/* Loading spinner */
+.stSpinner {
+    color: #ffffff !important;
+}
+
+/* Success/Error/Warning messages */
+.stSuccess {
+    background-color: #0f4c28 !important;
+    color: #ffffff !important;
+    border: 1px solid #28a745;
+}
+
+.stError {
+    background-color: #4c0f0f !important;
+    color: #ffffff !important;
+    border: 1px solid #dc3545;
+}
+
+.stWarning {
+    background-color: #4c3d0f !important;
+    color: #ffffff !important;
+    border: 1px solid #ffc107;
+}
+
+.stInfo {
+    background-color: #0f2a4c !important;
+    color: #ffffff !important;
+    border: 1px solid #17a2b8;
 }
 </style>
 """
 st.markdown(custom_css, unsafe_allow_html=True)
 
-# --- Clean Header ---
+# --- Modern Header ---
 st.markdown("""
-<div style='background-color: #f8f9fa; padding: 2rem; border: 2px solid #000000; border-radius: 8px; margin-bottom: 2rem;'>
-    <h1 style='color: #000000; font-size: 2.5rem; margin-bottom: 0.5rem; font-weight: 800; text-align: center;'>
+<div style='background: linear-gradient(135deg, #111111 0%, #222222 100%); padding: 3rem 2rem; border: 1px solid #333333; border-radius: 16px; margin-bottom: 2rem; text-align: center;'>
+    <h1 style='color: #ffffff; font-size: 3.5rem; margin-bottom: 1rem; font-weight: 700; letter-spacing: -0.02em;'>
         HireLens
     </h1>
-    <p style='color: #333333; font-size: 1.1rem; margin-bottom: 0.3rem; text-align: center;'>
-        Upload resumes and job descriptions to find the best candidates using AI-powered matching.
+    <p style='color: #cccccc; font-size: 1.3rem; margin-bottom: 0.5rem; font-weight: 400;'>
+        AI-Powered Resume Evaluation Platform
     </p>
-    <p style='color: #666666; font-size: 0.95rem; margin: 0; text-align: center;'>
-        Our system analyzes skills, experience, and relevance to rank applicants automatically.
+    <p style='color: #888888; font-size: 1.1rem; margin: 0; font-weight: 300;'>
+        Advanced candidate matching using semantic analysis and machine learning
     </p>
 </div>
 """, unsafe_allow_html=True)
@@ -430,21 +612,21 @@ def process_resume(file_content, job_description, model, resume_name):
     candidate_name = parsed_data['name'] if parsed_data['name'] else resume_name
     try:
         insert_result(candidate_name, relevance_score, analysis_summary, json.dumps(parsed_data['skills']), match_level, skill_gaps, get_file_hash(file_content))
-        st.success(f"Analysis for {candidate_name} completed and saved to database.")
+        st.success(f"✅ Analysis for **{candidate_name}** completed and saved to database.")
     except sqlite3.IntegrityError:
-        st.info(f"Analysis for {candidate_name} is already in the database. Skipping.")
+        st.info(f"ℹ️ Analysis for **{candidate_name}** is already in the database. Skipping.")
 
 def run_full_analysis(uploaded_files, job_description, model, save_resumes=False):
     create_table()
     if not st.session_state.job_description:
-        st.warning("Please load a Job Description first.")
+        st.warning("⚠️ Please load a Job Description first.")
         return
 
     existing_hashes = get_existing_hashes()
     # Process files from the data/resumes folder
     data_resumes_path = os.path.join(os.getcwd(), 'data', 'resumes')
     if os.path.exists(data_resumes_path):
-        st.markdown("<h4 style='color: #000000;'>Processing from local folder...</h4>", unsafe_allow_html=True)
+        st.markdown("<h4 style='color: #ffffff; font-weight: 600;'>🔄 Processing from local folder...</h4>", unsafe_allow_html=True)
         for filename in os.listdir(data_resumes_path):
             if filename.endswith('.pdf'):
                 file_path = os.path.join(data_resumes_path, filename)
@@ -456,14 +638,14 @@ def run_full_analysis(uploaded_files, job_description, model, save_resumes=False
 
     # Process newly uploaded files
     if uploaded_files:
-        st.markdown("<h4 style='color: #000000;'>Processing newly uploaded files...</h4>", unsafe_allow_html=True)
+        st.markdown("<h4 style='color: #ffffff; font-weight: 600;'>📁 Processing newly uploaded files...</h4>", unsafe_allow_html=True)
         if save_resumes:
             # Save to disk permanently
             resumes_dir = os.path.join(os.getcwd(), 'data', 'resumes')
             os.makedirs(resumes_dir, exist_ok=True)
-            st.info("Resumes will be saved permanently and visible to all users.")
+            st.info("💾 Resumes will be saved permanently and visible to all users.")
         else:
-            st.info("Resumes are being processed in memory only - not saved to disk.")
+            st.info("🔄 Resumes are being processed in memory only - not saved to disk.")
         
         for uploaded_file in uploaded_files:
             file_content = uploaded_file.read()
@@ -476,22 +658,22 @@ def run_full_analysis(uploaded_files, job_description, model, save_resumes=False
                 if not os.path.exists(local_resume_path):
                     with open(local_resume_path, 'wb') as f:
                         f.write(file_content)
-                    st.success(f"Resume {uploaded_file.name} saved permanently.")
+                    st.success(f"✅ Resume **{uploaded_file.name}** saved permanently.")
             
             if file_hash not in existing_hashes:
                 process_resume(file_content, st.session_state.job_description, model, uploaded_file.name)
             else:
-                st.info(f"{uploaded_file.name} is already in the database. Skipping.")
+                st.info(f"ℹ️ **{uploaded_file.name}** is already in the database. Skipping.")
 
 # --- Streamlit UI and Workflow ---
 def main():
     # --- Export Section ---
     st.markdown("""
-    <div style='background: white; padding: 1.5rem; border: 2px solid #e0e0e0; border-radius: 8px; margin-bottom: 2rem;'>
-        <h2 style='color: #000000; margin-bottom: 0.5rem; font-size: 1.5rem;'>
+    <div style='background: linear-gradient(135deg, #111111 0%, #1a1a1a 100%); padding: 2rem; border: 1px solid #333333; border-radius: 16px; margin-bottom: 2rem;'>
+        <h2 style='color: #ffffff; margin-bottom: 1rem; font-size: 1.8rem; font-weight: 700;'>
             📊 Export Results
         </h2>
-        <p style='color: #666666; margin-bottom: 1rem; font-size: 0.95rem;'>Download your analysis results for offline use or sharing</p>
+        <p style='color: #cccccc; margin-bottom: 1.5rem; font-size: 1.1rem; font-weight: 400;'>Download your analysis results for offline use or sharing</p>
     """, unsafe_allow_html=True)
     
     results_df = get_results()
@@ -526,25 +708,25 @@ def main():
                     mime="application/pdf"
                 )
             except ImportError:
-                st.info("Install the 'fpdf' package to enable PDF export: pip install fpdf")
+                st.info("💡 Install the 'fpdf' package to enable PDF export: pip install fpdf")
     else:
-        st.markdown('<p style="color: #666666; font-size: 0.9rem;">No results to export. Please run an analysis first.</p>', unsafe_allow_html=True)
+        st.markdown('<p style="color: #888888; font-size: 1rem; text-align: center; padding: 2rem;">No results to export. Please run an analysis first.</p>', unsafe_allow_html=True)
     
     st.markdown("</div>", unsafe_allow_html=True)
     
     # --- AI Assistant Section ---
     st.markdown("""
-    <div style='background: white; padding: 1.5rem; border: 2px solid #e0e0e0; border-radius: 8px; margin-bottom: 2rem;'>
-        <h2 style='color: #000000; margin-bottom: 0.5rem; font-size: 1.5rem;'>
+    <div style='background: linear-gradient(135deg, #111111 0%, #1a1a1a 100%); padding: 2rem; border: 1px solid #333333; border-radius: 16px; margin-bottom: 2rem;'>
+        <h2 style='color: #ffffff; margin-bottom: 1rem; font-size: 1.8rem; font-weight: 700;'>
             🤖 AI Assistant
         </h2>
-        <p style='color: #666666; margin-bottom: 1rem; font-size: 0.95rem;'>Get instant answers about hiring, recruitment strategies, and candidate evaluation</p>
+        <p style='color: #cccccc; margin-bottom: 1.5rem; font-size: 1.1rem; font-weight: 400;'>Get instant answers about hiring, recruitment strategies, and candidate evaluation</p>
     """, unsafe_allow_html=True)
     
     user_query = st.text_input("Ask anything about hiring and recruitment:", placeholder="e.g., How to evaluate technical candidates?")
     if user_query:
         if not API_KEY:
-            st.warning("AI Assistant is currently unavailable. Please check configuration.")
+            st.warning("⚠️ AI Assistant is currently unavailable. Please check configuration.")
         else:
             headers = {'Content-Type': 'application/json'}
             payload = {"contents": [{"parts": [{"text": user_query}]}]}
@@ -555,14 +737,14 @@ def main():
                 answer = result.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', None)
                 if answer:
                     st.markdown(f"""
-                    <div style='background: #f8f9fa; border-left: 4px solid #000000; padding: 1rem; border-radius: 4px; margin-top: 1rem;'>
-                        <p style='color: #000000; margin: 0; line-height: 1.5; font-size: 0.95rem;'>{answer}</p>
+                    <div style='background: #222222; border-left: 4px solid #ffffff; padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem;'>
+                        <p style='color: #ffffff; margin: 0; line-height: 1.6; font-size: 1rem;'>{answer}</p>
                     </div>
                     """, unsafe_allow_html=True)
                 else:
-                    st.info("No response from AI Assistant.")
+                    st.info("ℹ️ No response from AI Assistant.")
             except Exception as e:
-                st.error(f"AI Assistant error: {e}")
+                st.error(f"❌ AI Assistant error: {e}")
     
     st.markdown("</div>", unsafe_allow_html=True)
                 
@@ -578,201 +760,6 @@ def main():
         st.markdown("### ⚙️ Controls")
         if st.button("🗑️ Clear All Results", type="primary"):
             clear_results()
-            st.success("All results cleared!")
+            st.success("✅ All results cleared!")
         
-        st.markdown("---")
-
-        st.markdown("### 📝 Job Description")
-        jd_file = st.file_uploader(
-            "Upload JD File",
-            type=["pdf", "txt"],
-            key="jd_uploader"
-        )
-
-        jd_text_input = st.text_area(
-            "Or paste text directly:",
-            value="",
-            height=120,
-            key="jd_textarea"
-        )
-
-        st.markdown("### 📄 Resume Upload")
-        
-        save_resumes = st.checkbox(
-            "💾 Save resumes permanently",
-            value=False
-        )
-        
-        uploaded_resume_files = st.file_uploader(
-            "Upload Resume Files",
-            type=["pdf"],
-            accept_multiple_files=True,
-            key="resume_uploader"
-        )
-
-        st.markdown("---")
-
-        load_jd_clicked = st.button("✅ Load Job Description", use_container_width=True)
-        if load_jd_clicked:
-            try:
-                if jd_text_input.strip():
-                    jd_text = jd_text_input.strip()
-                elif jd_file and jd_file.type == "application/pdf":
-                    pdf_bytes = jd_file.read()
-                    with fitz.open(stream=pdf_bytes, filetype="pdf") as doc:
-                        jd_text = ""
-                        for page in doc:
-                            jd_text += page.get_text()
-                elif jd_file:
-                    jd_text = jd_file.read().decode("utf-8")
-                else:
-                    jd_text = ""
-                st.session_state.job_description = jd_text
-                st.success("Job Description loaded!")
-            except Exception as e:
-                st.error(f"Error loading job description: {e}")
-
-        jd_loaded = 'job_description' in st.session_state and st.session_state.job_description.strip()
-        if st.button("🚀 Start Analysis", disabled=not jd_loaded, use_container_width=True):
-            run_full_analysis(uploaded_resume_files, st.session_state.job_description, model, save_resumes)
-            st.rerun()
-
-        if save_resumes:
-            st.caption("📌 Files saved to 'data/resumes' folder")
-        else:
-            st.caption("📌 Processing in memory only")
-    
-    # --- Top Performer Highlight ---
-    results_df = get_results()
-    if not results_df.empty and 'job_description' in st.session_state and st.session_state.job_description.strip():
-        filtered_df = results_df[~results_df['resume_name'].str.lower().str.contains('professional summary|tarun kumar')].copy()
-        import numpy as np
-        filtered_df['resume_name'] = filtered_df['resume_name'].apply(lambda x: x if (isinstance(x, str) and x.strip()) else 'No Name')
-        if not filtered_df.empty:
-            top_performer = filtered_df.sort_values(by='relevance_score', ascending=False).iloc[0]
-            st.markdown(f"""
-            <div style='background: #f8f9fa; padding: 2rem; border: 2px solid #000000; border-radius: 8px; margin-bottom: 2rem; text-align: center;'>
-                <div style='font-size: 3rem; margin-bottom: 1rem;'>🏆</div>
-                <h2 style='color: #000000; margin-bottom: 0.5rem; font-size: 2rem; font-weight: 700;'>
-                    Top Performer: {top_performer['resume_name']}
-                </h2>
-                <h3 style='color: #333333; margin-bottom: 1rem; font-size: 1.5rem;'>
-                    Match Score: {top_performer['relevance_score']:.1f}%
-                </h3>
-                <div style='background: #ffffff; border: 1px solid #e0e0e0; padding: 1rem; border-radius: 6px; display: inline-block;'>
-                    <p style='color: #000000; margin: 0; font-size: 1rem;'>
-                        <strong>Key Skills:</strong> {top_performer['extracted_skills']}
-                    </p>
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
-
-    # --- Main Tabs ---
-    tab1, tab2 = st.tabs(["All Candidates", "Top 3 Matches"])
-
-    with tab1:
-        st.markdown("### Complete Candidate Analysis")
-        results_df = get_results()
-        import numpy as np
-        results_df = results_df.copy()
-        results_df['resume_name'] = results_df['resume_name'].apply(lambda x: x if (isinstance(x, str) and x.strip()) else 'No Name')
-        
-        if not results_df.empty:
-            col1, col2, col3, col4 = st.columns(4)
-            with col1:
-                st.metric("👥 Total Candidates", len(results_df))
-            with col2:
-                avg_score = results_df['relevance_score'].astype(str).str.replace('%','').astype(float).mean()
-                st.metric("📈 Average Score", f"{avg_score:.1f}%")
-            with col3:
-                excellent_count = len(results_df[results_df['match_level'] == 'Excellent match'])
-                st.metric("⭐ Excellent Matches", excellent_count)
-            with col4:
-                partial_count = len(results_df[results_df['match_level'] == 'Partial match'])
-                st.metric("💡 Partial Matches", partial_count)
-        
-        search_name = st.text_input("🔍 Search candidates:", placeholder="Enter name to filter...")
-        display_df = results_df
-        if search_name.strip():
-            display_df = results_df[results_df['resume_name'].str.lower().str.contains(search_name.strip().lower())]
-        
-        if not display_df.empty:
-            display_df['relevance_score'] = display_df['relevance_score'].astype(str).str.replace('%','').astype(float)
-            display_df = display_df.sort_values(by='relevance_score', ascending=False)
-            display_df['relevance_score'] = display_df['relevance_score'].apply(lambda x: f"{x:.1f}%")
-            display_df['extracted_skills'] = display_df['extracted_skills'].apply(lambda x: ', '.join(json.loads(x)))
-            display_df = display_df[['resume_name', 'relevance_score', 'match_level', 'extracted_skills', 'skill_gaps']]
-            display_df.index = np.arange(1, len(display_df) + 1)
-            st.dataframe(display_df, use_container_width=True)
-        else:
-            st.markdown('<p style="color: #666666;">No candidates found. Please upload resumes and run analysis.</p>', unsafe_allow_html=True)
-
-    with tab2:
-        st.markdown("### 🎯 Top 3 Best Matches")
-        results_df = get_results()
-        filtered_df = results_df[~results_df['resume_name'].str.lower().str.contains('professional summary|tarun kumar')].copy()
-        filtered_df['relevance_score'] = filtered_df['relevance_score'].astype(str).str.replace('%','').astype(float)
-        filtered_df = filtered_df.sort_values(by='relevance_score', ascending=False)
-        
-        if not filtered_df.empty:
-            top_candidates = filtered_df.head(3)
-            for i, (index, row) in enumerate(top_candidates.iterrows()):
-                # Position badges
-                if i == 0:
-                    badge = "Top mtach"
-                    bg_color = "#f8f9fa"
-                    text_color = "#000000"
-                    border_color = "#000000"
-                elif i == 1:
-                    badge = "Top second match"
-                    bg_color = "#ffffff"
-                    text_color = "#000000"
-                    border_color = "#666666"
-                else:
-                    badge = "Top third match"
-                    bg_color = "#ffffff"
-                    text_color = "#000000"
-                    border_color = "#999999"
-                
-                st.markdown(f"""
-                <div style='background: {bg_color}; padding: 1.5rem; border: 2px solid {border_color}; border-radius: 8px; margin-bottom: 1rem;'>
-                    <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;'>
-                        <h3 style='color: {text_color}; margin: 0; font-size: 1.3rem; font-weight: 700;'>
-                            {row['resume_name']}
-                        </h3>
-                        <span style='background: {border_color}; 
-                                     color: {"#ffffff" if border_color == "#000000" else "#ffffff"}; 
-                                     padding: 0.3rem 0.8rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600;'>
-                            {badge}
-                        </span>
-                    </div>
-                    <div style='margin-bottom: 0.8rem;'>
-                        <h4 style='color: {text_color}; margin: 0 0 0.3rem 0; font-size: 1.1rem;'>
-                            Match Score: {row['relevance_score']:.1f}%
-                        </h4>
-                    </div>
-                    <div style='border-top: 1px solid #e0e0e0; padding-top: 1rem;'>
-                        <p style='color: {text_color}; margin: 0 0 0.5rem 0; font-size: 0.95rem;'>
-                            <strong>Match Level:</strong> {row['match_level']}
-                        </p>
-                        <p style='color: {text_color}; margin: 0 0 0.5rem 0; font-size: 0.95rem;'>
-                            <strong>Key Skills:</strong> {row['extracted_skills']}
-                        </p>
-                        <p style='color: {text_color}; margin: 0; font-size: 0.95rem;'>
-                            <strong>Areas to Develop:</strong> {row['skill_gaps']}
-                        </p>
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
-        else:
-            st.markdown("""
-            <div style='background: white; padding: 2rem; border: 2px dashed #e0e0e0; border-radius: 8px; text-align: center;'>
-                <div style='font-size: 3rem; margin-bottom: 1rem;'>🎯</div>
-                <h3 style='color: #000000; margin-bottom: 0.5rem; font-size: 1.3rem;'>No Candidates Yet</h3>
-                <p style='color: #666666; margin: 0; font-size: 0.95rem;'>Upload resumes and run analysis to see top matches</p>
-            </div>
-            """, unsafe_allow_html=True)
-
-if __name__ == "__main__":
-    create_table()
-    main()
+        st.markdown
