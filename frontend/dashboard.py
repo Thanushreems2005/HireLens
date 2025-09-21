@@ -267,6 +267,7 @@ def get_results():
     except Exception as e:
         st.error(f"Error fetching data from database: {e}")
         return pd.DataFrame()
+    
 
 def get_file_hash(file_content):
     hasher = hashlib.sha256()
