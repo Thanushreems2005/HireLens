@@ -14,7 +14,7 @@ import hashlib
 
 st.set_page_config(
     page_title="HireLens: AI-Powered Resume Evaluator",
-    page_icon="🧑‍💼",
+    page_icon="HL",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -668,10 +668,10 @@ def main():
             """, unsafe_allow_html=True)
 
     # --- Main Tabs ---
-    tab1, tab2 = st.tabs(["📊 All Candidates", "🎯 Top 3 Matches"])
+    tab1, tab2 = st.tabs(["All Candidates", "Top 3 Matches"])
 
     with tab1:
-        st.markdown("### 📋 Complete Candidate Analysis")
+        st.markdown("### Complete Candidate Analysis")
         results_df = get_results()
         import numpy as np
         results_df = results_df.copy()
@@ -719,26 +719,29 @@ def main():
             for i, (index, row) in enumerate(top_candidates.iterrows()):
                 # Position badges
                 if i == 0:
-                    badge = "🥇 1st Place"
-                    bg_color = "#000000"
-                    text_color = "#ffffff"
+                    badge = "Top mtach"
+                    bg_color = "#f8f9fa"
+                    text_color = "#000000"
+                    border_color = "#000000"
                 elif i == 1:
-                    badge = "🥈 2nd Place" 
-                    bg_color = "#f8f9fa"
+                    badge = "Top second match"
+                    bg_color = "#ffffff"
                     text_color = "#000000"
+                    border_color = "#666666"
                 else:
-                    badge = "🥉 3rd Place"
-                    bg_color = "#f8f9fa"
+                    badge = "Top third match"
+                    bg_color = "#ffffff"
                     text_color = "#000000"
+                    border_color = "#999999"
                 
                 st.markdown(f"""
-                <div style='background: {bg_color}; padding: 1.5rem; border: 2px solid #e0e0e0; border-radius: 8px; margin-bottom: 1rem;'>
+                <div style='background: {bg_color}; padding: 1.5rem; border: 2px solid {border_color}; border-radius: 8px; margin-bottom: 1rem;'>
                     <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;'>
                         <h3 style='color: {text_color}; margin: 0; font-size: 1.3rem; font-weight: 700;'>
                             {row['resume_name']}
                         </h3>
-                        <span style='background: {"#ffffff" if bg_color == "#000000" else "#000000"}; 
-                                     color: {"#000000" if bg_color == "#000000" else "#ffffff"}; 
+                        <span style='background: {border_color}; 
+                                     color: {"#ffffff" if border_color == "#000000" else "#ffffff"}; 
                                      padding: 0.3rem 0.8rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600;'>
                             {badge}
                         </span>
@@ -748,7 +751,7 @@ def main():
                             Match Score: {row['relevance_score']:.1f}%
                         </h4>
                     </div>
-                    <div style='border-top: 1px solid {"#333333" if bg_color == "#000000" else "#e0e0e0"}; padding-top: 1rem;'>
+                    <div style='border-top: 1px solid #e0e0e0; padding-top: 1rem;'>
                         <p style='color: {text_color}; margin: 0 0 0.5rem 0; font-size: 0.95rem;'>
                             <strong>Match Level:</strong> {row['match_level']}
                         </p>
