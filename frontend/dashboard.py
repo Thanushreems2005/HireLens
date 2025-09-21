@@ -59,16 +59,31 @@ custom_css = """
     color: #666666 !important;
 }
 .stButton>button {
-    background-color: #000000;
-    color: white;
+    background-color: #000000 !important;
+    color: #ffffff !important;
     border-radius: 6px;
     font-weight: 600;
-    border: none;
+    border: 2px solid #000000;
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
 }
 .stButton>button:hover {
-    background-color: #333333;
+    background-color: #333333 !important;
+    color: #ffffff !important;
+}
+.stButton>button:focus {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border-color: #000000 !important;
+}
+.stButton>button[data-testid="stBaseButton-primary"] {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+.stDownloadButton>button {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #000000;
 }
 .stMetric {
     background-color: white;
@@ -167,14 +182,14 @@ st.markdown(custom_css, unsafe_allow_html=True)
 
 # --- Clean Header ---
 st.markdown("""
-<div style='background-color: #000000; padding: 2rem; border-radius: 8px; margin-bottom: 2rem;'>
-    <h1 style='color: white; font-size: 2.5rem; margin-bottom: 0.5rem; font-weight: 800; text-align: center;'>
+<div style='background-color: #f8f9fa; padding: 2rem; border: 2px solid #000000; border-radius: 8px; margin-bottom: 2rem;'>
+    <h1 style='color: #000000; font-size: 2.5rem; margin-bottom: 0.5rem; font-weight: 800; text-align: center;'>
         HireLens
     </h1>
-    <p style='color: #cccccc; font-size: 1.1rem; margin-bottom: 0.3rem; text-align: center;'>
+    <p style='color: #333333; font-size: 1.1rem; margin-bottom: 0.3rem; text-align: center;'>
         Upload resumes and job descriptions to find the best candidates using AI-powered matching.
     </p>
-    <p style='color: #999999; font-size: 0.95rem; margin: 0; text-align: center;'>
+    <p style='color: #666666; font-size: 0.95rem; margin: 0; text-align: center;'>
         Our system analyzes skills, experience, and relevance to rank applicants automatically.
     </p>
 </div>
@@ -636,16 +651,16 @@ def main():
         if not filtered_df.empty:
             top_performer = filtered_df.sort_values(by='relevance_score', ascending=False).iloc[0]
             st.markdown(f"""
-            <div style='background: #000000; padding: 2rem; border-radius: 8px; margin-bottom: 2rem; text-align: center;'>
+            <div style='background: #f8f9fa; padding: 2rem; border: 2px solid #000000; border-radius: 8px; margin-bottom: 2rem; text-align: center;'>
                 <div style='font-size: 3rem; margin-bottom: 1rem;'>🏆</div>
-                <h2 style='color: white; margin-bottom: 0.5rem; font-size: 2rem; font-weight: 700;'>
+                <h2 style='color: #000000; margin-bottom: 0.5rem; font-size: 2rem; font-weight: 700;'>
                     Top Performer: {top_performer['resume_name']}
                 </h2>
-                <h3 style='color: #cccccc; margin-bottom: 1rem; font-size: 1.5rem;'>
+                <h3 style='color: #333333; margin-bottom: 1rem; font-size: 1.5rem;'>
                     Match Score: {top_performer['relevance_score']:.1f}%
                 </h3>
-                <div style='background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 6px; display: inline-block;'>
-                    <p style='color: white; margin: 0; font-size: 1rem;'>
+                <div style='background: #ffffff; border: 1px solid #e0e0e0; padding: 1rem; border-radius: 6px; display: inline-block;'>
+                    <p style='color: #000000; margin: 0; font-size: 1rem;'>
                         <strong>Key Skills:</strong> {top_performer['extracted_skills']}
                     </p>
                 </div>
