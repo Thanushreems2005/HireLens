@@ -14,7 +14,7 @@ import hashlib
 
 st.set_page_config(
     page_title="HireLens: AI-Powered Resume Evaluator",
-    page_icon="<HL>",
+    page_icon="🧑‍💼",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -25,10 +25,38 @@ custom_css = """
 .stApp {
     background-color: #ffffff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #000000;
 }
 .stSidebar {
     background-color: #f8f9fa;
     border-right: 1px solid #e0e0e0;
+}
+.stSidebar .stMarkdown {
+    color: #000000 !important;
+}
+.stSidebar .stMarkdown h1, .stSidebar .stMarkdown h2, .stSidebar .stMarkdown h3 {
+    color: #000000 !important;
+}
+.stSidebar .stMarkdown p {
+    color: #000000 !important;
+}
+.stSidebar label {
+    color: #000000 !important;
+}
+.stSidebar .stFileUploader label {
+    color: #000000 !important;
+}
+.stSidebar .stFileUploader div {
+    color: #000000 !important;
+}
+.stSidebar .stCheckbox label {
+    color: #000000 !important;
+}
+.stSidebar .stCheckbox span {
+    color: #000000 !important;
+}
+.stSidebar .caption {
+    color: #666666 !important;
 }
 .stButton>button {
     background-color: #000000;
@@ -47,6 +75,13 @@ custom_css = """
     padding: 1rem;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
+    color: #000000;
+}
+.stMetric label {
+    color: #000000 !important;
+}
+.stMetric div {
+    color: #000000 !important;
 }
 .stDataFrame {
     background-color: #ffffff;
@@ -54,24 +89,77 @@ custom_css = """
     border-radius: 8px;
 }
 .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
-    color: #000000;
+    color: #000000 !important;
     font-weight: 700;
+}
+.stMarkdown p {
+    color: #000000 !important;
 }
 .stTextInput>div>div>input, .stTextArea>div>div>textarea {
     background-color: #ffffff;
     border: 2px solid #e0e0e0;
     border-radius: 6px;
-    color: #000000;
+    color: #000000 !important;
     font-size: 0.9rem;
 }
 .stTextInput>div>div>input:focus, .stTextArea>div>div>textarea:focus {
     border-color: #000000;
 }
+.stTextInput label {
+    color: #000000 !important;
+}
+.stTextArea label {
+    color: #000000 !important;
+}
 .stSelectbox>div>div>select {
     background-color: #ffffff;
     border: 2px solid #e0e0e0;
     border-radius: 6px;
-    color: #000000;
+    color: #000000 !important;
+}
+.stSelectbox label {
+    color: #000000 !important;
+}
+.stFileUploader {
+    color: #000000 !important;
+}
+.stFileUploader label {
+    color: #000000 !important;
+}
+.stFileUploader div {
+    color: #000000 !important;
+}
+.stFileUploader section {
+    border: 2px dashed #e0e0e0 !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+.stFileUploader section div {
+    color: #000000 !important;
+}
+.stCheckbox label {
+    color: #000000 !important;
+}
+.stCheckbox span {
+    color: #000000 !important;
+}
+.stTabs [data-baseweb="tab-list"] {
+    background-color: #f8f9fa;
+}
+.stTabs [data-baseweb="tab"] {
+    color: #000000 !important;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+}
+.stTabs [aria-selected="true"] {
+    background-color: #000000 !important;
+    color: white !important;
+}
+div[data-testid="stSidebarNav"] {
+    color: #000000 !important;
+}
+div[data-testid="stSidebarNav"] span {
+    color: #000000 !important;
 }
 </style>
 """
@@ -616,15 +704,15 @@ def main():
             for i, (index, row) in enumerate(top_candidates.iterrows()):
                 # Position badges
                 if i == 0:
-                    badge = "Top match 🥇"
+                    badge = "🥇 1st Place"
                     bg_color = "#000000"
                     text_color = "#ffffff"
                 elif i == 1:
-                    badge = "2nd top match 🥈"
+                    badge = "🥈 2nd Place" 
                     bg_color = "#f8f9fa"
                     text_color = "#000000"
                 else:
-                    badge = "3rd top match 🥉"
+                    badge = "🥉 3rd Place"
                     bg_color = "#f8f9fa"
                     text_color = "#000000"
                 
