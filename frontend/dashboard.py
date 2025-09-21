@@ -612,21 +612,21 @@ def process_resume(file_content, job_description, model, resume_name):
     candidate_name = parsed_data['name'] if parsed_data['name'] else resume_name
     try:
         insert_result(candidate_name, relevance_score, analysis_summary, json.dumps(parsed_data['skills']), match_level, skill_gaps, get_file_hash(file_content))
-        st.success(f"✅ Analysis for **{candidate_name}** completed and saved to database.")
+        st.success(f"Analysis for {candidate_name} completed and saved to database.")
     except sqlite3.IntegrityError:
-        st.info(f"ℹ️ Analysis for **{candidate_name}** is already in the database. Skipping.")
+        st.info(f"Analysis for {candidate_name} is already in the database. Skipping.")
 
 def run_full_analysis(uploaded_files, job_description, model, save_resumes=False):
     create_table()
     if not st.session_state.job_description:
-        st.warning("⚠️ Please load a Job Description first.")
+        st.warning("Please load a Job Description first.")
         return
 
     existing_hashes = get_existing_hashes()
     # Process files from the data/resumes folder
     data_resumes_path = os.path.join(os.getcwd(), 'data', 'resumes')
     if os.path.exists(data_resumes_path):
-        st.markdown("<h4 style='color: #ffffff; font-weight: 600;'>🔄 Processing from local folder...</h4>", unsafe_allow_html=True)
+        st.markdown("<h4 style='color: #ffffff; font-weight: 600;'>Processing from local folder...</h4>", unsafe_allow_html=True)
         for filename in os.listdir(data_resumes_path):
             if filename.endswith('.pdf'):
                 file_path = os.path.join(data_resumes_path, filename)
@@ -638,14 +638,14 @@ def run_full_analysis(uploaded_files, job_description, model, save_resumes=False
 
     # Process newly uploaded files
     if uploaded_files:
-        st.markdown("<h4 style='color: #ffffff; font-weight: 600;'>📁 Processing newly uploaded files...</h4>", unsafe_allow_html=True)
+        st.markdown("<h4 style='color: #ffffff; font-weight: 600;'>Processing newly uploaded files...</h4>", unsafe_allow_html=True)
         if save_resumes:
             # Save to disk permanently
             resumes_dir = os.path.join(os.getcwd(), 'data', 'resumes')
             os.makedirs(resumes_dir, exist_ok=True)
-            st.info("💾 Resumes will be saved permanently and visible to all users.")
+            st.info("Resumes will be saved permanently and visible to all users.")
         else:
-            st.info("🔄 Resumes are being processed in memory only - not saved to disk.")
+            st.info("Resumes are being processed in memory only - not saved to disk.")
         
         for uploaded_file in uploaded_files:
             file_content = uploaded_file.read()
@@ -658,12 +658,12 @@ def run_full_analysis(uploaded_files, job_description, model, save_resumes=False
                 if not os.path.exists(local_resume_path):
                     with open(local_resume_path, 'wb') as f:
                         f.write(file_content)
-                    st.success(f"✅ Resume **{uploaded_file.name}** saved permanently.")
+                    st.success(f"Resume {uploaded_file.name} saved permanently.")
             
             if file_hash not in existing_hashes:
                 process_resume(file_content, st.session_state.job_description, model, uploaded_file.name)
             else:
-                st.info(f"ℹ️ **{uploaded_file.name}** is already in the database. Skipping.")
+                st.info(f"{uploaded_file.name} is already in the database. Skipping.")
 
 # --- Streamlit UI and Workflow ---
 def main():
@@ -708,7 +708,7 @@ def main():
                     mime="application/pdf"
                 )
             except ImportError:
-                st.info("💡 Install the 'fpdf' package to enable PDF export: pip install fpdf")
+                st.info("Install the 'fpdf' package to enable PDF export: pip install fpdf")
     else:
         st.markdown('<p style="color: #888888; font-size: 1rem; text-align: center; padding: 2rem;">No results to export. Please run an analysis first.</p>', unsafe_allow_html=True)
     
@@ -726,7 +726,7 @@ def main():
     user_query = st.text_input("Ask anything about hiring and recruitment:", placeholder="e.g., How to evaluate technical candidates?")
     if user_query:
         if not API_KEY:
-            st.warning("⚠️ AI Assistant is currently unavailable. Please check configuration.")
+            st.warning("AI Assistant is currently unavailable. Please check configuration.")
         else:
             headers = {'Content-Type': 'application/json'}
             payload = {"contents": [{"parts": [{"text": user_query}]}]}
@@ -742,9 +742,9 @@ def main():
                     </div>
                     """, unsafe_allow_html=True)
                 else:
-                    st.info("ℹ️ No response from AI Assistant.")
+                    st.info("No response from AI Assistant.")
             except Exception as e:
-                st.error(f"❌ AI Assistant error: {e}")
+                st.error(f"AI Assistant error: {e}")
     
     st.markdown("</div>", unsafe_allow_html=True)
                 
@@ -760,6 +760,222 @@ def main():
         st.markdown("### ⚙️ Controls")
         if st.button("🗑️ Clear All Results", type="primary"):
             clear_results()
-            st.success("✅ All results cleared!")
+            st.success("All results cleared!")
         
-        st.markdown
+        st.markdown("---")
+
+        st.markdown("### 📝 Job Description")
+        jd_file = st.file_uploader(
+            "Upload JD File",
+            type=["pdf", "txt"],
+            key="jd_uploader"
+        )
+
+        jd_text_input = st.text_area(
+            "Or paste text directly:",
+            value="",
+            height=120,
+            key="jd_textarea"
+        )
+
+        st.markdown("### 📄 Resume Upload")
+        
+        save_resumes = st.checkbox(
+            "💾 Save resumes permanently",
+            value=False
+        )
+        
+        uploaded_resume_files = st.file_uploader(
+            "Upload Resume Files",
+            type=["pdf"],
+            accept_multiple_files=True,
+            key="resume_uploader"
+        )
+
+        st.markdown("---")
+
+        load_jd_clicked = st.button("✅ Load Job Description", use_container_width=True)
+        if load_jd_clicked:
+            try:
+                if jd_text_input.strip():
+                    jd_text = jd_text_input.strip()
+                elif jd_file and jd_file.type == "application/pdf":
+                    pdf_bytes = jd_file.read()
+                    with fitz.open(stream=pdf_bytes, filetype="pdf") as doc:
+                        jd_text = ""
+                        for page in doc:
+                            jd_text += page.get_text()
+                elif jd_file:
+                    jd_text = jd_file.read().decode("utf-8")
+                else:
+                    jd_text = ""
+                st.session_state.job_description = jd_text
+                st.success("Job Description loaded!")
+            except Exception as e:
+                st.error(f"Error loading job description: {e}")
+
+        jd_loaded = 'job_description' in st.session_state and st.session_state.job_description.strip()
+        if st.button("🚀 Start Analysis", disabled=not jd_loaded, use_container_width=True):
+            run_full_analysis(uploaded_resume_files, st.session_state.job_description, model, save_resumes)
+            st.rerun()
+
+        if save_resumes:
+            st.caption("📌 Files saved to 'data/resumes' folder")
+        else:
+            st.caption("📌 Processing in memory only")
+    
+    # --- Top Performer Highlight ---
+    results_df = get_results()
+    if not results_df.empty and 'job_description' in st.session_state and st.session_state.job_description.strip():
+        filtered_df = results_df[~results_df['resume_name'].str.lower().str.contains('professional summary|tarun kumar')].copy()
+        import numpy as np
+        filtered_df['resume_name'] = filtered_df['resume_name'].apply(lambda x: x if (isinstance(x, str) and x.strip()) else 'No Name')
+        if not filtered_df.empty:
+            top_performer = filtered_df.sort_values(by='relevance_score', ascending=False).iloc[0]
+            st.markdown(f"""
+            <div style='background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); padding: 3rem 2rem; border: 2px solid #ffffff; border-radius: 16px; margin-bottom: 2rem; text-align: center;'>
+                <div style='font-size: 4rem; margin-bottom: 1rem;'>🏆</div>
+                <h2 style='color: #ffffff; margin-bottom: 1rem; font-size: 2.5rem; font-weight: 700;'>
+                    Top Performer: {top_performer['resume_name']}
+                </h2>
+                <h3 style='color: #cccccc; margin-bottom: 2rem; font-size: 1.8rem; font-weight: 500;'>
+                    Match Score: {top_performer['relevance_score']:.1f}%
+                </h3>
+                <div style='background: #111111; border: 1px solid #333333; padding: 1.5rem; border-radius: 12px; display: inline-block; max-width: 600px;'>
+                    <p style='color: #ffffff; margin: 0; font-size: 1.1rem; line-height: 1.6;'>
+                        <strong style='color: #ffffff;'>Key Skills:</strong> <span style='color: #cccccc;'>{top_performer['extracted_skills']}</span>
+                    </p>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+    # --- Main Tabs ---
+    tab1, tab2 = st.tabs(["📊 All Candidates", "🎯 Top 3 Matches"])
+
+    with tab1:
+        st.markdown("### Complete Candidate Analysis")
+        results_df = get_results()
+        import numpy as np
+        results_df = results_df.copy()
+        results_df['resume_name'] = results_df['resume_name'].apply(lambda x: x if (isinstance(x, str) and x.strip()) else 'No Name')
+        
+        if not results_df.empty:
+            col1, col2, col3, col4 = st.columns(4)
+            with col1:
+                st.metric("👥 Total Candidates", len(results_df))
+            with col2:
+                avg_score = results_df['relevance_score'].astype(str).str.replace('%','').astype(float).mean()
+                st.metric("📈 Average Score", f"{avg_score:.1f}%")
+            with col3:
+                excellent_count = len(results_df[results_df['match_level'] == 'Excellent match'])
+                st.metric("⭐ Excellent Matches", excellent_count)
+            with col4:
+                partial_count = len(results_df[results_df['match_level'] == 'Partial match'])
+                st.metric("💡 Partial Matches", partial_count)
+        
+        search_name = st.text_input("🔍 Search candidates:", placeholder="Enter name to filter...")
+        display_df = results_df
+        if search_name.strip():
+            display_df = results_df[results_df['resume_name'].str.lower().str.contains(search_name.strip().lower())]
+        
+        if not display_df.empty:
+            display_df['relevance_score'] = display_df['relevance_score'].astype(str).str.replace('%','').astype(float)
+            display_df = display_df.sort_values(by='relevance_score', ascending=False)
+            display_df['relevance_score'] = display_df['relevance_score'].apply(lambda x: f"{x:.1f}%")
+            display_df['extracted_skills'] = display_df['extracted_skills'].apply(lambda x: ', '.join(json.loads(x)))
+            display_df = display_df[['resume_name', 'relevance_score', 'match_level', 'extracted_skills', 'skill_gaps']]
+            display_df.index = np.arange(1, len(display_df) + 1)
+            st.dataframe(display_df, use_container_width=True)
+        else:
+            st.markdown("""
+            <div style='background: #111111; padding: 3rem 2rem; border: 2px dashed #333333; border-radius: 16px; text-align: center; margin: 2rem 0;'>
+                <div style='font-size: 4rem; margin-bottom: 1rem;'>📋</div>
+                <h3 style='color: #ffffff; margin-bottom: 1rem; font-size: 1.5rem; font-weight: 600;'>No Candidates Found</h3>
+                <p style='color: #cccccc; margin: 0; font-size: 1.1rem;'>Upload resumes and run analysis to see candidate data</p>
+            </div>
+            """, unsafe_allow_html=True)
+
+    with tab2:
+        st.markdown("### 🎯 Top 3 Best Matches")
+        results_df = get_results()
+        filtered_df = results_df[~results_df['resume_name'].str.lower().str.contains('professional summary|tarun kumar')].copy()
+        filtered_df['relevance_score'] = filtered_df['relevance_score'].astype(str).str.replace('%','').astype(float)
+        filtered_df = filtered_df.sort_values(by='relevance_score', ascending=False)
+        
+        if not filtered_df.empty:
+            top_candidates = filtered_df.head(3)
+            for i, (index, row) in enumerate(top_candidates.iterrows()):
+                # Position badges and styling
+                if i == 0:
+                    badge = "🥇 Top Match"
+                    bg_gradient = "linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%)"
+                    border_color = "#ffffff"
+                elif i == 1:
+                    badge = "🥈 Second Best"
+                    bg_gradient = "linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)"
+                    border_color = "#cccccc"
+                else:
+                    badge = "🥉 Third Best"
+                    bg_gradient = "linear-gradient(135deg, #111111 0%, #222222 100%)"
+                    border_color = "#999999"
+                
+                st.markdown(f"""
+                <div style='background: {bg_gradient}; padding: 2rem; border: 2px solid {border_color}; border-radius: 16px; margin-bottom: 1.5rem;'>
+                    <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;'>
+                        <h3 style='color: #ffffff; margin: 0; font-size: 1.5rem; font-weight: 700;'>
+                            {row['resume_name']}
+                        </h3>
+                        <span style='background: {border_color}; 
+                                     color: {"#000000" if border_color == "#ffffff" else "#000000"}; 
+                                     padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600;'>
+                            {badge}
+                        </span>
+                    </div>
+                    <div style='margin-bottom: 1.5rem;'>
+                        <div style='background: #000000; padding: 1rem; border-radius: 12px; text-align: center; border: 1px solid #333333;'>
+                            <h2 style='color: #ffffff; margin: 0; font-size: 2rem; font-weight: 700;'>
+                                {row['relevance_score']:.1f}%
+                            </h2>
+                            <p style='color: #cccccc; margin: 0.5rem 0 0 0; font-size: 1rem;'>Match Score</p>
+                        </div>
+                    </div>
+                    <div style='border-top: 1px solid #333333; padding-top: 1.5rem;'>
+                        <div style='margin-bottom: 1rem;'>
+                            <p style='color: #ffffff; margin: 0 0 0.5rem 0; font-size: 1rem; font-weight: 600;'>
+                                📊 Match Level
+                            </p>
+                            <p style='color: #cccccc; margin: 0; font-size: 1rem; padding-left: 1.5rem;'>
+                                {row['match_level']}
+                            </p>
+                        </div>
+                        <div style='margin-bottom: 1rem;'>
+                            <p style='color: #ffffff; margin: 0 0 0.5rem 0; font-size: 1rem; font-weight: 600;'>
+                                🛠️ Key Skills
+                            </p>
+                            <p style='color: #cccccc; margin: 0; font-size: 1rem; padding-left: 1.5rem; line-height: 1.6;'>
+                                {row['extracted_skills']}
+                            </p>
+                        </div>
+                        <div>
+                            <p style='color: #ffffff; margin: 0 0 0.5rem 0; font-size: 1rem; font-weight: 600;'>
+                                📈 Areas to Develop
+                            </p>
+                            <p style='color: #cccccc; margin: 0; font-size: 1rem; padding-left: 1.5rem; line-height: 1.6;'>
+                                {row['skill_gaps']}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+        else:
+            st.markdown("""
+            <div style='background: linear-gradient(135deg, #111111 0%, #1a1a1a 100%); padding: 3rem 2rem; border: 2px dashed #333333; border-radius: 16px; text-align: center; margin: 2rem 0;'>
+                <div style='font-size: 4rem; margin-bottom: 1.5rem;'>🎯</div>
+                <h3 style='color: #ffffff; margin-bottom: 1rem; font-size: 1.8rem; font-weight: 600;'>No Top Matches Yet</h3>
+                <p style='color: #cccccc; margin: 0; font-size: 1.2rem; line-height: 1.6;'>Upload resumes and run analysis to discover your top candidates</p>
+            </div>
+            """, unsafe_allow_html=True)
+
+if __name__ == "__main__":
+    create_table()
+    main()
